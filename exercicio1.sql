@@ -15,11 +15,12 @@ create table produtos(
 	id serial primary key,
 	categoria_id int not null,
 	nome varchar(100) not null,
-	preco numeric(10,2) not null check(preco > 0)
-	quantidade_estoque int not null default 0 check (qtd_estoque >= 0)
-)
+	preco numeric(10,2) not null check(preco > 0),
+	qtd_estoque int not null default 0 check (qtd_estoque >= 0),
+
 
 CONSTRAINT fk_produtos_categoria
 	FOREIGN key (categoria_id)
-	REFERENCES categoria(id)
+	REFERENCES categorias(id)
 	on delete restrict
+);
