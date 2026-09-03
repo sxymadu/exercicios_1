@@ -133,3 +133,45 @@ insert into itens_pedido(pedido_id, produto_id, quantidade, preco_unitario) VALU
 
 select * from itens_pedido
 
+select
+    p.nome as produto,
+    c.nome as categoria,
+    p.preco,
+    p.qtd_estoque
+    from produtos p
+    join categorias c on c.id = p.categoria_id
+    order by p.preco desc;
+
+select 
+    p.id as pedidos,
+     c.nome,
+     p.data_pedido,
+     p.status
+
+     from cliente c
+     join pedidos p on c.id = p.cliente_id
+     where c.nome = 'Bella'
+
+	 SELECT
+	ped.id as pedidos_id,
+	cli.nome as clientes,
+	sum(item.quantidade * item.preco_unitario) as valor_total_pedido
+from pedidos ped
+inner join clientes cli on ped.cliente_id = cli.id
+inner join itens_pedido item on ped.id = item.pedido_id
+group by ped.id, cli.nome
+order by ped.id;
+
+insert into produtos(categoria_id, nome, preco, qtd_estoque) VALUES
+(1, 'teclado valen', 250.00, 5)
+
+SELECT
+	produtos.nome,
+	produtos.qtd_estoque
+from
+	produtos
+	JOIN
+	itens_pedido ON itens_pedido.produto_id = produtos.id
+	where produtos.qtd_estoque < 10
+	order by
+	produtos.qtd_estoque ASC
