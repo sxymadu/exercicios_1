@@ -76,11 +76,11 @@ CONSTRAINT fk_produtos_categoria
 	on delete restrict
 );
 
-ate table pedidos(
+create table pedidos(
 	id serial primary KEY,
 	cliente_id int nott NULL,
 	data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	status va
+	status varchar 
 )
 
 
