@@ -83,3 +83,50 @@ join
 especialidades
 on
 medicos.especialidade_id =  especialidades.id
+
+select
+pacientes.nome,
+consultas.id,
+consultas.data_hora,
+medicos.nome,
+especialidades.nome,
+consultas.status
+FROM
+pacientes
+join consultas on consultas.pacientes_id = pacientes.id
+join medicos on medicos.id = consultas.medicos_id
+join especialidades on especialidades.id = medicos.especialidades_id
+WHERE
+pacientes.nome = 'Isabella'
+
+SELECT
+consultas.id,
+pacientes.nome,
+medicos.nome,
+(medicos.valor_consulta + SUM(exames_consulta.valor_exame)) as valor_total
+from
+consultas
+join pacientes on pacientes.id = consultas.pacientes_id
+join medicos on consultas.medicos_id = medicos.id
+join exames_consulta on exames_consulta.consulta_id = consultas.id
+group by consultas.id, pacientes.nome, medicos.nome, medicos.valor_consulta, exames_consulta.valor_exame
+
+select
+nome,
+valor_consulta
+from medicos
+where (valor_consulta > 300)
+
+select
+especialidades.nome,
+medicos.valor_consulta,
+exames_consulta.valor_exame,
+(medicos.valor_consulta + SUM(exames_consulta.valor_exame)) as valor_total,
+consultas.status
+FROM
+medicos
+join especialidades on medicos.especialidades_id = especialidades.id
+join exames_consulta on medicos.id = exames_consulta.id
+join consultas on medicos.id = consultas.medicos_id
+where (consultas.status = 'REALIZADA')
+group by especialidades.nome, medicos.valor_consulta, exames_consulta.valor_exame, consultas.status
